@@ -3,16 +3,20 @@
 const path = require('path');
 const express = require('express');
 const webpack = require('webpack');
-const config = require('../webpack/webpack.config.js');
-
-const isDeveloping = process.env.NODE_ENV !== 'production';
-const port = isDeveloping ? 3000 : process.env.PORT;
+const logger = require('morgan');
+const bodyParser = require('body-parser');
+const webpackConfig = require('../webpack/webpack.config.js');
+// Express will set the NODE_ENV to 'development' if you dont config it, but
+// koa is not.
+const isDev = process.env.NODE_ENV !== 'production';
+const config = isDev ? require('../config.dev.json') : require('../config.prod.json')
+const port = process.env.PORT ? process.env.PORT : config.port;
 const app = express();
 
-if (isDeveloping) {
-  const compiler = webpack(config);
+if (isDev) {
+  const compiler = webpack(webpackConfig);
   const middleware = require('webpack-dev-middleware')(compiler, {
-    publicPath: config.output.publicPath,
+    publicPath: webpackConfig.output.publicPath,
     contentBase: 'src',
     stats: {
       colors: true,
@@ -35,13 +39,16 @@ if (isDeveloping) {
   })
   app.use(hotMiddleware);
 
-} else {
-  app.use(express.static(__dirname + '/dist'));
 }
 
-app.listen(port, '0.0.0.0', function onStart(err) {
+app.use(logger('dev'));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use('/dist', express.static('./dist'));
+
+app.listen(port, config.host, function onStart(err) {
   if (err) {
     console.log(err);
   }
-  console.info('==> 🌎 Listening on port %s. Open up http://0.0.0.0:%s/ in your browser.', port, port);
+  console.info(`==> 🌎 Listening on port ${port}. Open up http://${config.host}:${port}/ in your browser.`);
 });
