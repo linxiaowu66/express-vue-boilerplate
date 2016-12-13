@@ -38,13 +38,12 @@ if (isDev) {
     })
   })
   app.use(hotMiddleware);
-
 }
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use('/dist', express.static('./dist'));
+app.use(express.static('dist'));
 
 app.listen(port, config.host, function onStart(err) {
   if (err) {
