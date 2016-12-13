@@ -24,7 +24,16 @@ module.exports = {
       'js': 'never',
       'vue': 'never'
     }],
+    "semi": 0,
+    "max-len": ["error", 120, 4, {
+      "comments": 80
+    }],
     // allow debugger during development
     'no-debugger': process.env.NODE_ENV === 'production' ? 2 : 0
+  },
+  "env": {
+    "browser": true,
+    "node": true,
+    "jasmine": true
   }
 }

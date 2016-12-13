@@ -1,19 +1,41 @@
 <template>
   <div id="app">
     <img src="./assets/img/logo.png">
-    <hello></hello>
+    <TodoList v-on:showToast='showToast'></TodoList>
+    <mu-toast v-if="toast" :message="message"/>
   </div>
 </template>
 
 <script>
-import Hello from './components/Hello';
+import TodoList from './components/TodoList';
 
 export default {
   name: 'app',
-  components: {
-    Hello,
+  data() {
+    return {
+      toast: false,
+      message: '',
+      toastTimer: null,
+    }
   },
-};
+  components: {
+    TodoList,
+  },
+  methods: {
+    showToast(message) {
+      if (this.toastTimer !== null) {
+        window.clearTimeout(this.toastTimer)
+        this.toastTimer = null
+      }
+      this.toast = true
+      this.message = message
+      this.toastTimer = window.setTimeout(() => {
+        this.toast = false
+        this.toastTimer = null
+      }, 4000)
+    },
+  },
+}
 </script>
 
 <style>

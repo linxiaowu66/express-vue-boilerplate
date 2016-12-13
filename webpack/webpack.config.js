@@ -1,8 +1,8 @@
-'use strict';
+'use strict'
 
-var path = require('path');
-var webpack = require('webpack');
-var HtmlWebpackPlugin = require('html-webpack-plugin');
+var path = require('path')
+var webpack = require('webpack')
+var HtmlWebpackPlugin = require('html-webpack-plugin')
 var projectRoot = path.resolve(__dirname, '../')
 var utils = require('./utils')
 
@@ -88,7 +88,8 @@ module.exports = {
           limit: 10000,
           name: utils.assetsPath('fonts/[name].[hash:7].[ext]')
         }
-      }
+      },
+      utils.styleLoaders({ sourceMap: true, extract: false })
     ]
   },
   eslint: {
@@ -102,4 +103,4 @@ module.exports = {
       })
     ]
   }
-};
+}

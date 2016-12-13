@@ -1,9 +1,9 @@
-'use strict';
+'use strict'
 
-var path = require('path');
-var webpack = require('webpack');
-var HtmlWebpackPlugin = require('html-webpack-plugin');
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
+var path = require('path')
+var webpack = require('webpack')
+var HtmlWebpackPlugin = require('html-webpack-plugin')
+var ExtractTextPlugin = require('extract-text-webpack-plugin')
 var projectRoot = path.resolve(__dirname, '../')
 var utils = require('./utils')
 
@@ -140,4 +140,4 @@ module.exports = {
       extract: true
     })
   }
-};
+}
