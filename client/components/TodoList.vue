@@ -2,13 +2,14 @@
 <div class="todo-list">
 <mu-list>
   <mu-sub-header>TODOList</mu-sub-header>
-  <mu-list-item v-for="(item, index) in list" :title="item.name">
-    <mu-icon-menu slot="right" icon="more_vert" tooltip="操作">
-      <mu-menu-item title="修改" @click="updateList(index)"/>
-      <mu-menu-item title="删除" @click="deleteList(index)"/>
-    </mu-icon-menu>
-  </mu-list-item>
-  <mu-divider inset/>
+  <mu-paper class="demo-paper" :zDepth="1" v-for="(item, index) in list">
+    <mu-list-item  :title="item.name">
+      <mu-icon-menu slot="right" icon="more_vert" tooltip="操作">
+        <mu-menu-item title="修改" @click="updateList(index)"/>
+        <mu-menu-item title="删除" @click="deleteList(index)"/>
+      </mu-icon-menu>
+    </mu-list-item>
+  </mu-paper>
 </mu-list>
 <mu-text-field :label="action" hintText="随便输点什么" type="list" v-model="text" labelFloat/>
 <mu-raised-button label="提交" class="raised-button" @click="submit"/>
@@ -123,7 +124,9 @@ export default {
 .raised-button{
   margin-left: 12px;
 }
-
+.demo-paper{
+  margin-bottom: 8px;
+}
 
 </style>
 
