@@ -1,6 +1,6 @@
 {
   "name": "express-vue-boilerplate",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "a scaffolding for express server using vue for the front-end framework",
   "main": "server.js",
   "repository": {

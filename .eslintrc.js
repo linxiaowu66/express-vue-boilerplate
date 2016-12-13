@@ -28,6 +28,7 @@ module.exports = {
     "max-len": ["error", 120, 4, {
       "comments": 80
     }],
+    'no-underscore-dangle': 0,
     // allow debugger during development
     'no-debugger': process.env.NODE_ENV === 'production' ? 2 : 0
   },
