@@ -25,7 +25,9 @@ app.use(logger('dev'))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(express.static('dist'))
-app.use('/', routes);
+
+// 加载路由
+routes(app)
 
 mongoose.Promise = global.Promise;
 mongoose.connect(config.mongoUrl);

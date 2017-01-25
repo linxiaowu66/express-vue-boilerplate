@@ -1,10 +1,26 @@
+const glob = require('glob')
 const express = require('express')
 const router = express.Router()
 
-const todoController = require('../controllers/todoController.js')
+exports = module.exports = function initModules (app) {
+  glob(`${__dirname}/*`, { ignore: '**/index.js' }, (err, matches) => {
+    if (err) { throw err }
+    matches.forEach((mod) => {
+      const routes = require(`${mod}`)
 
-router.get('/todo/list', todoController.listAll)
-router.post('/todo/add', todoController.create)
-router.post('/todo/update', todoController.update)
-router.post('/todo/delete', todoController.delete)
-module.exports = router;
+      routes.forEach((config) => {
+        const {
+          method = '',
+          route = '',
+          handlers = []
+        } = config
+        const lastHandler = handlers.pop()
+
+        router[method.toLowerCase()](route, ...handlers, (req, res) => {
+          return lastHandler(req, res)
+        })
+      })
+    })
+    app.use('/', router)
+  })
+}
